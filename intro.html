@@ -38,14 +38,28 @@
         }
 
         .header {
-            text-align: center;
+            position: relative;
             margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .header img {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 80px;
         }
 
         .header h2 {
             color: var(--primary-color);
-            margin: 0 0 10px 0;
-font-size: 1.75rem;
+            margin: 0;
+            font-size: 1.75rem;
+        }
+
+        .header p {
+            color: #666;
+            margin: 10px 0 0 0;
         }
 
         .progress-container {
@@ -137,7 +151,7 @@ font-size: 1.75rem;
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            min-height: 50px; /* Manté l'espai per al botó */
+            min-height: 50px;
         }
 
         .next-btn {
@@ -150,7 +164,7 @@ font-size: 1.75rem;
             font-size: 1rem;
             font-weight: 600;
             transition: all 0.3s ease;
-            display: none; /* Amagat per defecte */
+            display: none;
         }
 
         .next-btn:not(:disabled):hover {
@@ -188,17 +202,16 @@ font-size: 1.75rem;
 <div class="quiz-container">
     <div id="quiz-ui">
         <div class="header">
+            <img src="logo.png" alt="Logo">
             <h2>Ús de la llengua</h2>
-            <p id="question-counter" style="color: #666; margin: 0;">Pregunta 1 de 12</p>
+            <p id="question-counter">Pregunta 1 de 12</p>
         </div>
 
         <div class="progress-container">
             <div id="progress-bar"></div>
         </div>
 
-        <div id="question-container">
-            <!-- Les preguntes s'injecten aquí -->
-        </div>
+        <div id="question-container"></div>
 
         <div class="navigation">
             <button id="next-button" class="next-btn" onclick="nextQuestion()">Next Question</button>
@@ -247,7 +260,7 @@ font-size: 1.75rem;
         container.innerHTML = `
             <div class="question-card">
                 <div class="question-text">${qData.q}</div>
-                <div class="options-list" id="options-list">
+                <div class="options-list">
                     ${qData.options.map((option, index) => `
                         <div class="option-item">
                             <button class="option-button" onclick="handleSelection(${index}, this)">
@@ -261,7 +274,7 @@ font-size: 1.75rem;
         `;
         
         const nextBtn = document.getElementById('next-button');
-        nextBtn.style.display = 'none'; // Amaga el botó per a la nova pregunta
+        nextBtn.style.display = 'none';
         nextBtn.innerText = currentQuestionIndex === questions.length - 1 ? "Finish Quiz" : "Next Question";
         document.getElementById('question-counter').innerText = `Pregunta ${currentQuestionIndex + 1} de ${questions.length}`;
     }
@@ -290,8 +303,7 @@ font-size: 1.75rem;
             score++;
         }
 
-        const nextBtn = document.getElementById('next-button');
-        nextBtn.style.display = 'block'; // Mostra el botó un cop seleccionada una opció
+        document.getElementById('next-button').style.display = 'block';
     }
 
     function nextQuestion() {
@@ -340,14 +352,3 @@ font-size: 1.75rem;
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
