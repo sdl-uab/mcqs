@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemples de preguntes d’ús de la llengua</title>
+    <style>
+        :root {
+            --primary-color: #018539; 
+            --dark-green: #015d28;   
+            --error-color: #d32f2f;
+            --success-bg: #e8f5e9;
+            --error-bg: #ffebee;
+            --option-hover-color: #f1f3f4;
+            --text-color: #2c3e50;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .quiz-container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .header {
+            position: relative;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .header h2 {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 1.75rem;
+        }
+
+        .header p {
+            color: #666;
+            margin: 10px 0 0 0;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .question-card {
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-text {
+            font-size: 1.50rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .option-item {
+            margin-bottom: 12px;
+        }
+
+        .option-button {
+            width: 100%;
+            padding: 16px 20px;
+            text-align: left;
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.25rem;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .option-button:not(.disabled):hover {
+            border-color: #bdbdbd;
+            background-color: var(--option-hover-color);
+        }
+
+        .option-button.correct {
+            background-color: var(--success-bg) !important;
+            border-color: var(--primary-color) !important;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .option-button.incorrect {
+            background-color: var(--error-bg) !important;
+            border-color: var(--error-color) !important;
+            color: var(--error-color);
+        }
+
+        .option-button.disabled {
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .feedback-icon {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .navigation {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            min-height: 50px;
+        }
+
+        .next-btn {
+            padding: 12px 40px;
+            background-color: var(--dark-green);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .next-btn:not(:disabled):hover {
+            filter: brightness(1.2);
+            transform: translateY(-1px);
+        }
+
+        .results-card {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .score-display {
+            font-size: 6rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin: 10px 0;
+        }
+
+        .restart-btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: var(--text-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <div id="quiz-ui">
+        <div class="header">
+            <h2>Ús de la llengua</h2>
+            <p id="question-counter">Pregunta 1 de 15</p>
+        </div>
+
+        <div class="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+
+        <div id="question-container"></div>
+
+        <div class="navigation">
+            <button id="next-button" class="next-btn" onclick="nextQuestion()">Següent pregunta</button>
+        </div>
+    </div>
+
+    <div id="results-ui" class="results-card">
+        <h2>Qüestionari completat</h2>
+        <p>La teva puntuació total és:</p>
+        <div class="score-display" id="final-score">0/15</div>
+        <p id="score-message" style="font-size: 1.1rem; color: #555;"></p>
+        <button class="restart-btn" onclick="restartQuiz()">Reiniciar qüestionari</button>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { q: "The woman _____ lives next door is a doctor.", options: ["who", "which", "where"], correct: 0 },
+        { q: "We decided to go ______ taxi because it was raining heavily.", options: ["with", "on", "by"], correct: 2 },
+        { q: "The city council have said that the new sports centre will _________ before the summer.", options: ["finished", "finish", "be finished"], correct: 2 },
+        { q: "Susan’s lived in this town ______ 2022.", options: ["since", "until", "during"], correct: 0 },
+        { q: "If I ______ more money, I would buy a new car.", options: ["had", "have", "will have"], correct: 0 },
+        { q: "The teacher asked the students to _____ attention during the lesson.", options: ["pay", "give", "make"], correct: 0 },
+        { q: "My doctor advised me _________ down on salt.", options: ["to cut", "cutting", "cut"], correct: 0 },
+        { q: "If James hadn’t stayed out so late last night, now he ___ so tired.", options: ["doesn't feel", "wouldn't have felt", "wouldn’t feel"], correct: 2 },
+        { q: "Students spend a lot of time searching for ___ information on the Internet.", options: ["reliable", "confident", "faithful"], correct: 0 },
+        { q: "At the awards ceremony, the ___ welcomed the audience and introduced each speaker.", options: ["spectator", "guest", "host"], correct: 2 },
+        { q: "________ the government to increase spending on education, it would help reduce inequality in the long term.", options: ["Should", "Were", "Had"], correct: 1 },
+        { q: "The film was a bit of a letdown. It didn't ___ up to my expectations at all.", options: ["live", "look", "get"], correct: 0 },
+        { q: "More advanced applications of this software are ___ to appear in the future. It's a foregone conclusion.", options: ["bound", "bred", "boom"], correct: 0 },
+        { q: "The imposition of censorship was a major ___ for the civil rights movement.", options: ["cutback", "throwback", "setback"], correct: 2 },
+        { q: "___ cameras have been installed in many streets to help combat juvenile delinquency.", options: ["Observance", "Vigilance", "Surveillance"], correct: 2 }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let hasAnswered = false;
+
+    function initQuiz() {
+        renderQuestion();
+        updateProgress();
+    }
+
+    function renderQuestion() {
+        const container = document.getElementById('question-container');
+        const qData = questions[currentQuestionIndex];
+        hasAnswered = false;
+        
+        container.innerHTML = `
+            <div class="question-card">
+                <div class="question-text">${qData.q}</div>
+                <div class="options-list">
+                    ${qData.options.map((option, index) => `
+                        <div class="option-item">
+                            <button class="option-button" onclick="handleSelection(${index}, this)">
+                                <span>${option}</span>
+                                <span class="feedback-icon"></span>
+                            </button>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+        
+        const nextBtn = document.getElementById('next-button');
+        nextBtn.style.display = 'none';
+        nextBtn.innerText = currentQuestionIndex === questions.length - 1 ? "Finalitzar qüestionari" : "Següent pregunta";
+        document.getElementById('question-counter').innerText = `Pregunta ${currentQuestionIndex + 1} de ${questions.length}`;
+    }
+
+    function handleSelection(index, btn) {
+        if (hasAnswered) return; 
+        
+        hasAnswered = true;
+        const correctIndex = questions[currentQuestionIndex].correct;
+        const buttons = document.querySelectorAll('.option-button');
+        
+        buttons.forEach((button, idx) => {
+            button.classList.add('disabled');
+            const iconSpan = button.querySelector('.feedback-icon');
+            
+            if (idx === correctIndex) {
+                button.classList.add('correct');
+                iconSpan.innerHTML = '✓';
+            } else if (idx === index) {
+                button.classList.add('incorrect');
+                iconSpan.innerHTML = '✕';
+            }
+        });
+
+        if (index === correctIndex) {
+            score++;
+        }
+
+        document.getElementById('next-button').style.display = 'block';
+    }
+
+    function nextQuestion() {
+        if (!hasAnswered) return;
+
+        if (currentQuestionIndex < questions.length - 1) {
+            currentQuestionIndex++;
+            renderQuestion();
+            updateProgress();
+        } else {
+            showResults();
+        }
+    }
+
+    function updateProgress() {
+        const progress = (currentQuestionIndex / questions.length) * 100;
+        document.getElementById('progress-bar').style.width = `${progress}%`;
+    }
+
+    function showResults() {
+        document.getElementById('progress-bar').style.width = `100%`;
+        document.getElementById('quiz-ui').style.display = 'none';
+        document.getElementById('results-ui').style.display = 'block';
+        document.getElementById('final-score').innerText = `${score} / ${questions.length}`;
+        
+        const percentage = (score / questions.length) * 100;
+        let message = "";
+        if (percentage === 100) message = "Puntuació perfecta! Molt bona feina.";
+        else if (percentage >= 80) message = "Molt bona feina! Una puntuació molt alta.";
+        else if (percentage >= 50) message = "Bon esforç. Segueix practicant!";
+        else message = "Segueix estudiant i torna-ho a provar.";
+        
+        document.getElementById('score-message').innerText = message;
+    }
+
+    function restartQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        document.getElementById('quiz-ui').style.display = 'block';
+        document.getElementById('results-ui').style.display = 'none';
+        initQuiz();
+    }
+
+    window.onload = initQuiz;
+</script>
+
+</body>
+</html>
