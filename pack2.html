@@ -43,6 +43,14 @@
             text-align: center;
         }
 
+        .header img {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 80px;
+        }
+
         .header h2 {
             color: var(--primary-color);
             margin: 0;
@@ -194,8 +202,9 @@
 <div class="quiz-container">
     <div id="quiz-ui">
         <div class="header">
+            <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
             <h2>Ús de la llengua</h2>
-            <p id="question-counter">Pregunta 1 de 17</p>
+            <p id="question-counter">Pregunta 1 de 12</p>
         </div>
 
         <div class="progress-container">
@@ -205,14 +214,14 @@
         <div id="question-container"></div>
 
         <div class="navigation">
-            <button id="next-button" class="next-btn" onclick="nextQuestion()">Següent pregunta</button>
+            <button id="next-button" class="next-btn" onclick="nextQuestion()">Next Question</button>
         </div>
     </div>
 
     <div id="results-ui" class="results-card">
         <h2>Qüestionari completat</h2>
         <p>La teva puntuació total és:</p>
-        <div class="score-display" id="final-score">0/17</div>
+        <div class="score-display" id="final-score">0/12</div>
         <p id="score-message" style="font-size: 1.1rem; color: #555;"></p>
         <button class="restart-btn" onclick="restartQuiz()">Reiniciar qüestionari</button>
     </div>
@@ -220,23 +229,18 @@
 
 <script>
     const questions = [
-        { q: "We ______ dinner when the phone rang.", options: ["had", "were having", "have"], correct: 1 },
-        { q: "Have you ever _____ an important object?", options: ["lost", "lose", "losing"], correct: 0 },
-        { q: "I need a new ___ for my computer.", options: ["keyring", "charger", "window"], correct: 1 },
-        { q: "This book is ______ than the one I read last week.", options: ["interesting", "more interesting", "most interesting"], correct: 1 },
-        { q: "Come on! We are going to ______ the bus if we don’t hurry.", options: ["lose", "miss", "catch"], correct: 1 },
-        { q: "Have you finished your homework _____?", options: ["alright", "just", "yet"], correct: 2 },
-        { q: "The train ___ left when we arrived at the station.", options: ["had", "have", "has"], correct: 0 },
-        { q: "I wish I ______ more free time.", options: ["have", "had", "will have"], correct: 1 },
-        { q: "Mark isn’t used to ______ up so early.", options: ["waking", "wake", "woken"], correct: 0 },
-        { q: "I was _________ if you could help me with the French homework?", options: ["asking", "wondering", "advising"], correct: 1 },
-        { q: "My sister is really _____ on classical music.", options: ["glad", "fond", "keen"], correct: 2 },
-        { q: "There were ___ people on the beach that we decided to go back to the hotel swimming pool.", options: ["such a lot of", "too many", "so much"], correct: 0 },
-        { q: "Not only ______ late, but he also forgot the documents.", options: ["Frank arrived", "did Frank arrive", "arrived Frank"], correct: 1 },
-        { q: "My boss finally managed to come ______ with a solution to the problem.", options: ["across", "out", "up"], correct: 2 },
-        { q: "The new payment system should significantly ______ efficiency.", options: ["enhance", "enlarge", "widen"], correct: 0 },
-        { q: "I don’t _________ you could give me a lift to the airport?", options: ["reckon", "figure", "suppose"], correct: 2 },
-        { q: "Had he known about the problem earlier, he ___ immediate action.", options: ["would have taken", "would take", "had taken"], correct: 0 }
+        { q: "______ people say that it is better to live in the city than in the country.", options: ["Most", "The most", "Mostly"], correct: 0 },
+        { q: "I haven't heard from him ______ he left for Australia.", options: ["since", "for", "from"], correct: 0 },
+        { q: "I'll call you as soon as I ______ home.", options: ["will get", "get", "got"], correct: 1 },
+        { q: "She is one of the ______ students in the class.", options: ["best", "better", "well"], correct: 0 },
+        { q: "They ______ to each other since they had the argument.", options: ["haven't spoken", "didn't speak", "don't speak"], correct: 0 },
+        { q: "I ______ to the cinema last night.", options: ["have gone", "went", "go"], correct: 1 },
+        { q: "We are ______ forward to seeing you at the weekend.", options: ["looking", "seeing", "waiting"], correct: 0 },
+        { q: "He ______ his homework before he went out to play.", options: ["did", "made", "has done"], correct: 0 },
+        { q: "You ______ better not tell her about the surprise.", options: ["would", "should", "had"], correct: 2 },
+        { q: "I wish I ______ more time to study.", options: ["have", "had", "would have"], correct: 1 },
+        { q: "The bus ______ every ten minutes.", options: ["leaves", "is leaving", "leave"], correct: 0 },
+        { q: "She is ______ intelligent than her sister.", options: ["more", "most", "much"], correct: 0 }
     ];
 
     let currentQuestionIndex = 0;
@@ -271,7 +275,7 @@
         
         const nextBtn = document.getElementById('next-button');
         nextBtn.style.display = 'none';
-        nextBtn.innerText = currentQuestionIndex === questions.length - 1 ? "Finalitzar qüestionari" : "Següent pregunta";
+        nextBtn.innerText = currentQuestionIndex === questions.length - 1 ? "Acabar" : "Següent pregunta";
         document.getElementById('question-counter').innerText = `Pregunta ${currentQuestionIndex + 1} de ${questions.length}`;
     }
 
