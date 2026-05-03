@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemples de preguntes d’ús de la llengua</title>
+    <title>Exemples de preguntes d’ús de la llengua (1)</title>
     <style>
         :root {
             --primary-color: #018539; 
@@ -41,9 +41,12 @@
             position: relative;
             margin-bottom: 25px;
             text-align: center;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        /* EXACT POSITIONING FROM YOUR EXAMPLE */
         .header img {
             position: absolute;
             left: 0;
@@ -56,11 +59,15 @@
             color: var(--primary-color);
             margin: 0;
             font-size: 1.75rem;
+            padding-left: 90px; /* Space for the logo */
+            text-align: left;
         }
 
         .header p {
             color: #666;
             margin: 10px 0 0 0;
+            padding-left: 90px;
+            text-align: left;
         }
 
         .progress-container {
@@ -203,9 +210,9 @@
 <div class="quiz-container">
     <div id="quiz-ui">
         <div class="header">
-            <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
+            <img src="logo.png" alt="Logo">
             <h2>Ús de la llengua</h2>
-            <p id="question-counter">Pregunta 1 de 17</p>
+            <p id="question-counter">Pregunta 1 de 16</p>
         </div>
 
         <div class="progress-container">
@@ -215,14 +222,14 @@
         <div id="question-container"></div>
 
         <div class="navigation">
-            <button id="next-button" class="next-btn" onclick="nextQuestion()">Next Question</button>
+            <button id="next-button" class="next-btn" onclick="nextQuestion()">Següent pregunta</button>
         </div>
     </div>
 
     <div id="results-ui" class="results-card">
         <h2>Qüestionari completat</h2>
         <p>La teva puntuació total és:</p>
-        <div class="score-display" id="final-score">0/17</div>
+        <div class="score-display" id="final-score">0/16</div>
         <p id="score-message" style="font-size: 1.1rem; color: #555;"></p>
         <button class="restart-btn" onclick="restartQuiz()">Reiniciar qüestionari</button>
     </div>
@@ -245,8 +252,7 @@
         { q: "Rarely ______ such an impressive performance from such a young musician.", options: ["I have seen", "have I seen", "I saw"], correct: 1 },
         { q: "______ I enjoy my job, I would like to have a better work-life balance.", options: ["Besides", "As well", "Much as"], correct: 2 },
         { q: "The new government policy aims to ______ economic inequality.", options: ["tackle", "pursue", "chase"], correct: 0 },
-        { q: "When we are young, we take our health for _________.", options: ["graded", "grated", "granted"], correct: 2 },
-        { q: "After so many years without practicing, my German is a little _______", options: ["messy", "rusty", "shabby"], correct: 1 }
+        { q: "When we are young, we take our health for _________.", options: ["graded", "grated", "granted"], correct: 2 }
     ];
 
     let currentQuestionIndex = 0;
@@ -281,7 +287,7 @@
         
         const nextBtn = document.getElementById('next-button');
         nextBtn.style.display = 'none';
-        nextBtn.innerText = currentQuestionIndex === questions.length - 1 ? "Acabar" : "Següent pregunta";
+        nextBtn.innerText = currentQuestionIndex === questions.length - 1 ? "Finalitzar" : "Següent pregunta";
         document.getElementById('question-counter').innerText = `Pregunta ${currentQuestionIndex + 1} de ${questions.length}`;
     }
 
@@ -337,7 +343,7 @@
         
         const percentage = (score / questions.length) * 100;
         let message = "";
-        if (percentage === 100) message = "Puntuació perfecta! Ets un expert en vocabulari.";
+        if (percentage === 100) message = "Puntuació perfecta! Ets un expert en vocabulari i gramàtica.";
         else if (percentage >= 80) message = "Molt bona feina! Una puntuació molt alta.";
         else if (percentage >= 50) message = "Bon esforç. Segueix practicant!";
         else message = "Segueix estudiant i torna-ho a provar.";

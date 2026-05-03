@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemples de preguntes d’ús de la llengua</title>
+    <title>Exemples de preguntes d’ús de la llengua (3)</title>
     <style>
         :root {
             --primary-color: #018539; 
@@ -41,6 +41,10 @@
             position: relative;
             margin-bottom: 25px;
             text-align: center;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .header img {
@@ -55,11 +59,15 @@
             color: var(--primary-color);
             margin: 0;
             font-size: 1.75rem;
+            padding-left: 90px;
+            text-align: left;
         }
 
         .header p {
             color: #666;
             margin: 10px 0 0 0;
+            padding-left: 90px;
+            text-align: left;
         }
 
         .progress-container {
@@ -202,9 +210,9 @@
 <div class="quiz-container">
     <div id="quiz-ui">
         <div class="header">
-            <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
+            <img src="logo.png" alt="Logo">
             <h2>Ús de la llengua</h2>
-            <p id="question-counter">Pregunta 1 de 12</p>
+            <p id="question-counter">Pregunta 1 de 16</p>
         </div>
 
         <div class="progress-container">
@@ -214,14 +222,14 @@
         <div id="question-container"></div>
 
         <div class="navigation">
-            <button id="next-button" class="next-btn" onclick="nextQuestion()">Next Question</button>
+            <button id="next-button" class="next-btn" onclick="nextQuestion()">Següent pregunta</button>
         </div>
     </div>
 
     <div id="results-ui" class="results-card">
         <h2>Qüestionari completat</h2>
         <p>La teva puntuació total és:</p>
-        <div class="score-display" id="final-score">0/12</div>
+        <div class="score-display" id="final-score">0/16</div>
         <p id="score-message" style="font-size: 1.1rem; color: #555;"></p>
         <button class="restart-btn" onclick="restartQuiz()">Reiniciar qüestionari</button>
     </div>
@@ -229,18 +237,22 @@
 
 <script>
     const questions = [
-        { q: "______ for the help, I couldn't have finished the project.", options: ["If it weren't", "But", "Except"], correct: 0 },
-        { q: "I ______ to the gym three times a week.", options: ["go", "goes", "am going"], correct: 0 },
-        { q: "By the time we got to the station, the train ______.", options: ["left", "had left", "has left"], correct: 1 },
-        { q: "He works ______ an engineer.", options: ["like", "as", "as if"], correct: 1 },
-        { q: "I don't mind ______ the dishes.", options: ["to do", "doing", "do"], correct: 1 },
-        { q: "If I ______ you, I would tell him the truth.", options: ["was", "were", "am"], correct: 1 },
-        { q: "She has been working here ______ ten years.", options: ["since", "for", "during"], correct: 1 },
-        { q: "He asked me where ______.", options: ["did I live", "I lived", "do I live"], correct: 1 },
-        { q: "I ______ my keys. Have you seen them?", options: ["lost", "have lost", "lose"], correct: 1 },
-        { q: "The weather is much ______ than yesterday.", options: ["good", "better", "best"], correct: 1 },
-        { q: "She ______ be at home. I saw her car in the driveway.", options: ["must", "can", "might"], correct: 0 },
-        { q: "They ______ to each other for months.", options: ["haven't spoken", "didn't speak", "don't speak"], correct: 0 }
+        { q: "Ann ___ a shower at the moment.", options: ["has", "is having", "have"], correct: 1 },
+        { q: "Harry's really _____ so he's going to bed.", options: ["tired", "shy", "quiet"], correct: 0 },
+        { q: "My sister is very _____. She always says “please” and “thank you”.", options: ["bored", "clever", "polite"], correct: 2 },
+        { q: "Tom isn't as tall _____ his brother.", options: ["as", "like", "than"], correct: 0 },
+        { q: "He has a very positive ___ toward work.", options: ["skill", "attitude", "competence"], correct: 1 },
+        { q: "Could you ______ me some money? I forgot my wallet at home.", options: ["lend", "spend", "borrow"], correct: 0 },
+        { q: "If it _____  snow in the next few weeks, we’ll have to cancel our ski trip.", options: ["won’t", "didn't", "doesn't"], correct: 2 },
+        { q: "The journey to Rome was awful. We got ___ in a huge traffic jam because we arrived during rush hour.", options: ["stuck", "locked", "closed"], correct: 0 },
+        { q: "I wouldn’t have known about the meeting if you ___ me.", options: ["don’t tell", "hadn’t told", "didn’t tell"], correct: 1 },
+        { q: "The more you practise, the ___ your English becomes.", options: ["better", "best", "good"], correct: 0 },
+        { q: "The view from the top of the skyscraper was absolutely ___.", options: ["stunning", "soaking", "gripping"], correct: 0 },
+        { q: "If James had gone to bed earlier last night, now he ___ so tired.", options: ["doesn’t feel", "wouldn't have felt", "wouldn’t feel"], correct: 2 },
+        { q: "______ enough time, I’m sure Joe will do a good job.", options: ["Giving", "Given", "To give"], correct: 1 },
+        { q: "The lecturer’s explanation was so ___ that everyone understood the complex issue.", options: ["lucid", "dull", "crystal"], correct: 0 },
+        { q: "No sooner had they made the announcement _____ the media began to speculate.", options: ["when", "that", "than"], correct: 2 },
+        { q: "During the economic recession many people found it difficult to make ___ meet.", options: ["ends", "bills", "days"], correct: 0 }
     ];
 
     let currentQuestionIndex = 0;
@@ -275,7 +287,7 @@
         
         const nextBtn = document.getElementById('next-button');
         nextBtn.style.display = 'none';
-        nextBtn.innerText = currentQuestionIndex === questions.length - 1 ? "Acabar" : "Següent pregunta";
+        nextBtn.innerText = currentQuestionIndex === questions.length - 1 ? "Finalitzar" : "Següent pregunta";
         document.getElementById('question-counter').innerText = `Pregunta ${currentQuestionIndex + 1} de ${questions.length}`;
     }
 
@@ -331,7 +343,7 @@
         
         const percentage = (score / questions.length) * 100;
         let message = "";
-        if (percentage === 100) message = "Puntuació perfecta! Molt bona feina.";
+        if (percentage === 100) message = "Puntuació perfecta! Ets un expert en vocabulari i gramàtica.";
         else if (percentage >= 80) message = "Molt bona feina! Una puntuació molt alta.";
         else if (percentage >= 50) message = "Bon esforç. Segueix practicant!";
         else message = "Segueix estudiant i torna-ho a provar.";
