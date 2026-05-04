@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemples de preguntes d’ús de la llengua (2)</title>
+    <title>Set 2</title>
     <style>
         :root {
             --primary-color: #018539; 
@@ -15,6 +15,8 @@
             --text-color: #2c3e50;
             --bg-color: #f8f9fa;
             --card-bg: #ffffff;
+            --link-hover-color: #04843b;
+            --link-idle-color: #b9dfc9;
         }
 
         body {
@@ -25,7 +27,27 @@
             margin: 0;
             padding: 20px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Top Navigation Styling */
+        .top-nav {
+            text-align: center;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .top-nav a {
+            color: var(--link-idle-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+
+        .top-nav a:hover {
+            color: var(--link-hover-color);
         }
 
         .quiz-container {
@@ -56,11 +78,30 @@
         }
 
         .header h2 {
-            color: var(--primary-color);
+            color: #000;
+            font-weight: normal;
             margin: 0;
             font-size: 1.75rem;
             padding-left: 90px;
             text-align: left;
+        }
+
+        .current-set {
+            color: #04843b;
+            font-weight: bold;
+        }
+
+        .header h2 a, 
+        .header h2 a:visited {
+            color: #b9dfc9;
+            text-decoration: none;
+            transition: color 0.2s;
+            font-weight: bold;
+        }
+
+        .header h2 a:hover {
+            color: #04843b;
+            text-decoration: none;
         }
 
         .header p {
@@ -99,6 +140,7 @@
             font-size: 1.50rem;
             font-weight: 600;
             margin-bottom: 25px;
+            white-space: pre-wrap;
         }
 
         .options-list {
@@ -207,12 +249,23 @@
 </head>
 <body>
 
+<div class="top-nav">
+    <a href="vgfs_cat.html">Inici</a> / 
+    <a href="vgfs_sp.html">Inicio</a> / 
+    <a href="vgfs_eng.html">Home</a>
+</div>
+
 <div class="quiz-container">
     <div id="quiz-ui">
         <div class="header">
-            <img src="logo.png" alt="Logo">
-            <h2>Ús de la llengua (2)</h2>
-            <p id="question-counter">Pregunta 1 de 16</p>
+            <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
+            <h2>
+                <a href="pack1.html">Set 1</a> / 
+                <span class="current-set">Set 2</span> / 
+                <a href="pack3.html">Set 3</a> / 
+                <a href="pack4.html">Set 4</a>
+            </h2>
+            <p id="question-counter">Question 1 of 16</p>
         </div>
 
         <div class="progress-container">
@@ -222,16 +275,15 @@
         <div id="question-container"></div>
 
         <div class="navigation">
-            <button id="next-button" class="next-btn" onclick="nextQuestion()">Següent pregunta</button>
+            <button id="next-button" class="next-btn" onclick="nextQuestion()">Next question</button>
         </div>
     </div>
 
     <div id="results-ui" class="results-card">
-        <h2>Qüestionari completat</h2>
-        <p>La teva puntuació total és:</p>
+        <p>Your score is:</p>
         <div class="score-display" id="final-score">0/16</div>
         <p id="score-message" style="font-size: 1.1rem; color: #555;"></p>
-        <button class="restart-btn" onclick="restartQuiz()">Reiniciar qüestionari</button>
+        <button class="restart-btn" onclick="restartQuiz()">Try again</button>
     </div>
 </div>
 
@@ -246,12 +298,12 @@
         { q: "The train ___ left when we arrived at the station.", options: ["had", "have", "has"], correct: 0 },
         { q: "I wish I ______ more free time.", options: ["have", "had", "will have"], correct: 1 },
         { q: "Mark isn’t used to ______ up so early.", options: ["waking", "wake", "woken"], correct: 0 },
-        { q: "I was _________ if you could help me with the French homework?", options: ["asking", "wondering", "advising"], correct: 1 },
+        { q: "I was ________ if you could help me with the French homework?", options: ["asking", "wondering", "advising"], correct: 1 },
         { q: "My sister is really _____ on classical music.", options: ["glad", "fond", "keen"], correct: 2 },
         { q: "There were ___ people on the beach that we decided to go back to the hotel swimming pool.", options: ["such a lot of", "too many", "so much"], correct: 0 },
         { q: "Not only ______ late, but he also forgot the documents.", options: ["Frank arrived", "did Frank arrive", "arrived Frank"], correct: 1 },
         { q: "My boss finally managed to come ______ with a solution to the problem.", options: ["across", "out", "up"], correct: 2 },
-        { q: "I don’t _________ you could give me a lift to the airport?", options: ["reckon", "figure", "suppose"], correct: 2 },
+        { q: "I don’t ________ you could give me a lift to the airport?", options: ["reckon", "figure", "suppose"], correct: 2 },
         { q: "Had he known about the problem earlier, he ___ immediate action.", options: ["would have taken", "would take", "had taken"], correct: 0 }
     ];
 
@@ -287,8 +339,8 @@
         
         const nextBtn = document.getElementById('next-button');
         nextBtn.style.display = 'none';
-        nextBtn.innerText = currentQuestionIndex === questions.length - 1 ? "Finalitzar" : "Següent pregunta";
-        document.getElementById('question-counter').innerText = `Pregunta ${currentQuestionIndex + 1} de ${questions.length}`;
+        nextBtn.innerText = currentQuestionIndex === questions.length - 1 ? "Finish" : "Next question";
+        document.getElementById('question-counter').innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
     }
 
     function handleSelection(index, btn) {
@@ -340,15 +392,7 @@
         document.getElementById('quiz-ui').style.display = 'none';
         document.getElementById('results-ui').style.display = 'block';
         document.getElementById('final-score').innerText = `${score} / ${questions.length}`;
-        
-        const percentage = (score / questions.length) * 100;
-        let message = "";
-        if (percentage === 100) message = "Puntuació perfecta! Ets un expert en vocabulari i gramàtica.";
-        else if (percentage >= 80) message = "Molt bona feina! Una puntuació molt alta.";
-        else if (percentage >= 50) message = "Bon esforç. Segueix practicant!";
-        else message = "Segueix estudiant i torna-ho a provar.";
-        
-        document.getElementById('score-message').innerText = message;
+        document.getElementById('score-message').innerText = "";
     }
 
     function restartQuiz() {

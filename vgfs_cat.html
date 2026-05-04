@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemples de preguntes d’ús de la llengua</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 5px 180px;
+            line-height: 40px;
+            font-size: 22px;
+        }
+
+        body:before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            right: 0;
+            width: 45%;
+            height: 100%;
+            background: url('background.png') no-repeat top right;
+            background-size: 100% auto;
+            opacity: 0.4; /* Adjust this value for transparency */
+            z-index: -1;
+        }
+
+        h1 {
+            font-size: 60px;
+            color: #018539;
+            line-height: 25px;
+            font-weight: normal;
+        }
+
+
+        h2 {
+            font-size: 30px;
+            color: #000000;
+        }
+        input[type="text"] {
+            background-color: #DDEFE5;
+            border: none;
+            border-radius: 5px;
+            font-size: 20px;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s;
+            width: 4ch;
+        }
+        input[type="text"]:hover {
+            background-color: #b9dfc9;
+        }
+        .incorrect {
+            background-color: #FD8383 !important;
+        }
+        .correct {
+            background-color: #DDEFE5;
+        }
+        button {
+            margin-top: 5px;
+            padding: 5px 20px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        #score {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+        .nowrap {
+            white-space: nowrap;
+        }
+
+        .timer-button, .timer-display {
+            display: inline-block;
+            vertical-align: center; /* Ensure both elements align vertically */
+        }
+
+        .timer-button {
+            background-color: #018539;
+            color: white;
+            border: none;
+            padding: 0px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            margin-right: 5px;
+            border-radius: 5px;
+            line-height: 2.0;
+        }
+
+        .timer-display {
+            background-color: #DDEFE5;
+            padding: 0px 20px;
+            font-size: 20px;
+            border-radius: 5px;
+            line-height: 2.0;
+        }
+
+        .expired {
+            background-color: #FD8383;
+        }
+
+        a {
+            color: #b9dfc9; /* default link color */
+            text-decoration: none; /* remove underline */
+        }
+        a:hover,
+        a:visited:hover {
+            color: #04843b; /* link color on hover and when visited */
+            text-decoration: none; /* underline on hover and when visited */
+        }
+        a:visited {
+            color: #b9dfc9; /* link color when visited */
+        }
+
+        .menu-table {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 140px;
+height: 100vh; /* Full viewport height */
+overflow-y: auto; /* Enable vertical scrolling */
+overflow-x: hidden; /* Disable horizontal scrolling */
+            background-color: #ffffff;
+            z-index: 9999;
+            padding: 10px;
+            box-sizing: border-box;
+            text-align: center;
+            border-radius: 5px; /* Rounded corners for the table */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for depth */
+        }
+        .menu-table img {
+            display: block; /* Ensure the logo is block-level */
+            margin-bottom: 200px; /* Space below the logo */
+        }
+        .menu-table ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .menu-table li {
+            margin-bottom: 5px;
+        }
+        .menu-table a {
+            display: block;
+            text-decoration: none;
+            color: black;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 0px;
+            border-radius: 5px;
+            background-color: #DDEFE5;
+height: 30px; /* Adjusted to match line-height */
+line-height: 30px; /* Adjusted to match height */
+        }
+        .menu-table a:hover {
+            background-color: #b9dfc9;
+        }
+
+        /* Ensure logo link has no additional styling */
+        .menu-table a.logo-link {
+            display: inline-block;
+            padding: 0;
+            background: none;
+        }
+
+        /* Ensure logo link has no additional styling */
+        .menu-table a.logo-link {
+            display: inline-block;
+            padding: 0;
+            background: none;
+        }
+
+/* Add margin to the first link to avoid overlap with the logo */
+.menu-table ul li:first-child a {
+    margin-top: 85px; /* Adjust this value as needed */
+}
+
+.language-switcher {
+            font-size: 18px;
+margin-bottom: 0px;
+        }
+    </style>
+</head><body>
+<div class="menu-table">
+<a href="https://www.uab.cat/web/uab-idiomes-campus/certificats-i-examens/descripcio-dels-examens/angles-b1-a-c1-1345819106896.html" class="logo-link">
+        <img src="logo_home.png" alt="Logo" width="120" style="border-radius: 5px;">
+    </a>
+    <ul>
+        <li><a href="">Inici</a></li>
+        <li><a href="pack1.html">Set 1</a></li>
+        <li><a href="pack2.html">Set 2</a></li>
+        <li><a href="pack3.html">Set 3</a></li>
+        <li><a href="pack4.html">Set 4</a></li>
+
+<li><a href="https://www.uab.cat/web/uab-idiomes-campus/certificats-i-examens/descripcio-dels-examens/angles-b1-a-c1-1345819106896.html">Idiomes UAB</a></li>
+    </ul>
+</div>
+
+<p class="language-switcher"><b><a href="vgfs_sp.html">Español</a></b> | <b><a href="vgfs_eng.html">English</a></b></p>
+<h1>Ús de la llengua</h1>
+<p>
+    <h2>Preguntes d’opció múltiple d’ús de la llengua</h2>
+    <p>És una <b>prova informatitzada adaptativa</b> que avalua els <b>coneixements gramaticals, lèxics i d’ús de la llengua</b>. Consta d’un nombre variable de preguntes d’opció múltiple de 3 o 4 opcions. Té un mínim de 9 preguntes i un màxim de 30, amb <b>una mitjana de 16 preguntes per examinand</b>.</p>
+
+<p style="color: #63b686;"><i><b>Nota</b> : aquests ítems són exemples que no han estat ni pilotats ni calibrats. L'objectiu d'aquests ítems és que els candidats es familiaritzin amb el format de la tasca.</i><p>
+
+</body>
+</html>
